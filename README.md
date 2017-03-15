@@ -8,6 +8,11 @@ This project leverages a variety of technologies to visualize a real-time stream
 
 - Clone this repository
 - Install dependencies (Flask, Flask-SocketIO, Redis, Celery, Pattern, Numpy, Pandas, Scikit-learn, Gensim)
+```
+source activate p2
+conda install scikit-learn pandas flask gensim
+pip install pattern flask-socketio celery
+```
 - Download twitter sentiment dataset [here](http://thinknook.com/wp-content/uploads/2012/09/Sentiment-Analysis-Dataset.zip)
 - Unzip the .csv file and save a copy in the 'scripts' folder
 - Run 'build_models.py' from the 'scripts' folder (can take a while on a slower machine)
