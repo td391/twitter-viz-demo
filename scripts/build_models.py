@@ -34,7 +34,7 @@ def main():
     word2vec.init_sims(replace=True)
 
     print('Fitting PCA transform...')
-    word_vectors = [word2vec[word] for word in word2vec.vocab]
+    word_vectors = [word2vec[word] for word in word2vec.wv.vocab]
     pca = PCA(n_components=2)
     pca.fit(word_vectors)
 

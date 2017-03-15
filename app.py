@@ -5,14 +5,13 @@ sys.path.append(path)
 
 import time
 import numpy as np
-from flask import *
-from flask_socketio import *
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 from celery import Celery, chain
 from pattern.web import Twitter
 from sklearn.externals import joblib
 from gensim.models import Word2Vec
-from tokenizer import *
-
+from tokenizer import tokenize
 
 # Initialize and configure Flask
 app = Flask(__name__)
