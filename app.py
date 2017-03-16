@@ -20,7 +20,10 @@ app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
 app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
 app.config['SOCKETIO_REDIS_URL'] = 'redis://localhost:6379/0'
 app.config['BROKER_TRANSPORT'] = 'redis'
-app.config['CELERY_ACCEPT_CONTENT'] = ['pickle']
+app.config['CELERY_ACCEPT_CONTENT'] = ['pickle', 'json']
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
 
 # Initialize SocketIO
 socketio = SocketIO(app, message_queue=app.config['SOCKETIO_REDIS_URL'])
