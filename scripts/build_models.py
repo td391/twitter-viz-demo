@@ -1,36 +1,36 @@
 import os
 import sys
-path = os.path.realpath('') + '/'
-sys.path.append(path)
-
 import pandas as pd
 from sklearn.decomposition.pca import PCA
 from sklearn.externals import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from gensim.models import Word2Vec
-from tokenizer import *
+from tokenizer import tokenize
 
 
-def main():
+def main(path):
     print('Reading in data file...')
     data = pd.read_csv(path + 'Sentiment Analysis Dataset.csv',
-                       usecols=['Sentiment', 'SentimentText'], error_bad_lines=False)
+                       usecols=['Sentiment', 'SentimentText'],
+                       error_bad_lines=False)
 
     print('Pre-processing tweet text...')
     corpus = data['SentimentText']
-    vectorizer = TfidfVectorizer(decode_error='replace', strip_accents='unicode',
+    vectorizer = TfidfVectorizer(decode_error='replace',
+                                 strip_accents='unicode',
                                  stop_words='english', tokenizer=tokenize)
-    X = vectorizer.fit_transform(corpus.values)
+    cx = vectorizer.fit_transform(corpus.values)
     y = data['Sentiment'].values
 
     print('Training sentiment classification model...')
     classifier = MultinomialNB()
-    classifier.fit(X, y)
+    classifier.fit(cx, y)
 
     print('Training word2vec model...')
     corpus = corpus.map(lambda x: tokenize(x))
-    word2vec = Word2Vec(corpus.tolist(), size=100, window=4, min_count=10, workers=4)
+    word2vec = Word2Vec(corpus.tolist(), size=100, window=4, min_count=10,
+                        workers=4)
     word2vec.init_sims(replace=True)
 
     print('Fitting PCA transform...')
@@ -48,4 +48,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    _path = os.path.realpath('') + '/'
+    sys.path.append(_path)
+    main(_path)
