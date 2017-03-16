@@ -56,7 +56,7 @@ def vectorize_tweet(tweet):
     """
     tweet_vector = np.zeros(100)
     for word in tokenize(tweet.text):
-        if word in word2vec.vocab:
+        if word in word2vec.wv.vocab:
             tweet_vector = tweet_vector + word2vec[word]
 
     components = pca.transform(tweet_vector)
